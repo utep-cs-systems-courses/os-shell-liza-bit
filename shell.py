@@ -9,9 +9,9 @@ from myPiping import pipeCmd
 
 def main():
 
-    while True: #shell runs forever
+    while True: #shell runs indefinitely
         if 'PS1' in os.environ:
-            os.write(1,(os.environ['PS1']).encode())
+            os.write(1,("$ ").encode())
         else:
             os.write(1,("$ ").encode())
 
@@ -27,13 +27,13 @@ def inputHandler(inputBuff):
         return
 
     if inputBuff == "exit": #user wants to exit shell
-        os.write(1("Exiting... Goodbye! \n").encode())
+        os.write(1,("Exiting... Goodbye! \n").encode())
         sys.exit(0)
 
     args = inputBuff.split(' ')
 
     if args[0] == "pwd": #print working directory command
-        os.write(1,(os.getcwd() + "\n") # os.getcwd returns current working directory
+        os.write(1,(os.getcwd() + "\n").encode()) # os.getcwd returns current working directory
 
     elif args[0] == "cd":
         try:
@@ -41,8 +41,8 @@ def inputHandler(inputBuff):
                  return
             else:
                  os.chdir(args[1])
-        except
-            os.write(1("cd %s: No such file or directory \n" % args[1])
+        except:
+            os.write(1,("cd %s: No such file or directory \n" % args[1]).encode())
 
     else:
         rc = os.fork() #return the child's process ID (PID)
